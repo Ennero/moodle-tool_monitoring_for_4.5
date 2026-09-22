@@ -15,9 +15,7 @@
 // along with tool_monitoring.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Legacy Prometheus endpoint for Moodle 4.4.
- *
- * Moodle 4.5 and later use the Routing API controller instead.
+ * Portable Prometheus endpoint for Moodle 4.5.
  *
  * @package    monitoringexporter_prometheus
  * @copyright  2025 MootDACH DevCamp

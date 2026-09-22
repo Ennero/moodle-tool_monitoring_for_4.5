@@ -60,6 +60,11 @@ use tool_monitoring\registered_metrics;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \monitoringexporter_prometheus\route\controller\prometheus
+ */
 #[CoversClass(prometheus::class)]
 final class prometheus_test extends advanced_testcase {
     /**
@@ -71,6 +76,11 @@ final class prometheus_test extends advanced_testcase {
      * @param array $queryparams Query parameters to send in the request.
      * @param int $expectedstatus Expected HTTP status code.
      * @param string $expectedbody Expected response body.
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_metrics
      */
     #[DataProvider('provider_test_get_metrics')]
     public function test_get_metrics(
@@ -235,6 +245,11 @@ final class prometheus_test extends advanced_testcase {
      * @param moodle_exception $exception The exception to throw.
      * @param int $expectedstatus Expected HTTP status code.
      * @param string $expectedbody Expected response body.
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_metrics_exception
      */
     #[DataProvider('provider_test_get_metrics_exception')]
     public function test_get_metrics_exception(moodle_exception $exception, int $expectedstatus, string $expectedbody): void {

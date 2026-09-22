@@ -52,6 +52,11 @@ use tool_monitoring\local\testing\test_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\output\configure
+ */
 #[CoversClass(configure::class)]
 final class configure_test extends advanced_testcase {
     /**

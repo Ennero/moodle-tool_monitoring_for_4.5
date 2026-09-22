@@ -57,12 +57,12 @@ final class test_metric_tag implements metric_tag {
      */
     public function __construct(
         /** @var string Normalized tag name. */
-        public readonly string $name,
+        public string $name,
         string|null $rawname = null,
         /** @var int Tag ID. */
-        public readonly int $id = 0,
+        public int $id = 0,
         /** @var int|null Tag instance ID (link between tag and metric). */
-        public readonly int|null $taginstanceid = null,
+        public int|null $taginstanceid = null,
     ) {
         $this->rawname = $rawname ?? $name;
         $this->editurl = new moodle_url('/tag/edit.php', ['id' => $this->id]);

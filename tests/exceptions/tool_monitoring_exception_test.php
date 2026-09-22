@@ -49,6 +49,19 @@ use PHPUnit\Framework\Attributes\DataProvider;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered classes.
+ *
+ * @covers \tool_monitoring\exceptions\form_data_value_missing
+ * @covers \tool_monitoring\exceptions\json_invalid
+ * @covers \tool_monitoring\exceptions\json_key_missing
+ * @covers \tool_monitoring\exceptions\metric_name_invalid
+ * @covers \tool_monitoring\exceptions\metric_not_found
+ * @covers \tool_monitoring\exceptions\simple_metric_config_constructor_missing
+ * @covers \tool_monitoring\exceptions\tag_not_found
+ * @covers \tool_monitoring\exceptions\tags_disabled
+ * @covers \tool_monitoring\exceptions\tool_monitoring_exception
+ */
 #[CoversClass(form_data_value_missing::class)]
 #[CoversClass(json_invalid::class)]
 #[CoversClass(json_key_missing::class)]
@@ -68,6 +81,11 @@ final class tool_monitoring_exception_test extends advanced_testcase {
      * @param string $errorcode Expected {@see moodle_exception::$errorcode `errorcode`} value of the exception instance.
      * @param string $module Expected {@see moodle_exception::$module `module`} value of the exception instance.
      * @param string $message Expected message returned by the exception's {@see Exception::getMessage `getMessage`} method.
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test___construct
      */
     #[DataProvider('provider_test___construct')]
     public function test___construct(

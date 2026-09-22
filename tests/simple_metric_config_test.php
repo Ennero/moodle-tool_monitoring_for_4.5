@@ -60,6 +60,11 @@ use tool_monitoring\local\testing\test_simple_metric_config_missing_constructor;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\simple_metric_config
+ */
 #[CoversClass(simple_metric_config::class)]
 final class simple_metric_config_test extends advanced_testcase {
     #[\Override]
@@ -88,6 +93,11 @@ final class simple_metric_config_test extends advanced_testcase {
      * @throws json_invalid
      * @throws json_key_missing
      * @throws simple_metric_config_constructor_missing
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_from_json
      */
     #[DataProvider('provider_test_from_json')]
     public function test_from_json(string $json, array|string $expected): void {
@@ -149,6 +159,11 @@ final class simple_metric_config_test extends advanced_testcase {
      * @param array<string, mixed>|string $expected Expected properties of the returned object or exception class name.
      * @throws form_data_value_missing
      * @throws simple_metric_config_constructor_missing
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_with_form_data
      */
     #[DataProvider('provider_test_with_form_data')]
     public function test_with_form_data(stdClass $formdata, array|string $expected): void {
@@ -241,7 +256,7 @@ final class simple_metric_config_test extends advanced_testcase {
             }
         );
         $mockmform->expects($this->exactly(2))->method('addRule')->willReturnCallback(
-            function (string $name, null $message, string $type, null $format, string $validation) use (&$calls): void {
+            function (string $name, ?string $message, string $type, ?string $format, string $validation) use (&$calls): void {
                 $calls[] = ['addRule', $name, $message, $type, $format, $validation];
             }
         );

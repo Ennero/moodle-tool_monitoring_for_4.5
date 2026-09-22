@@ -48,6 +48,11 @@ use tool_monitoring\metric_value;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\metrics\users_online
+ */
 #[CoversClass(users_online::class)]
 final class users_online_test extends advanced_testcase {
     public function test_get_type(): void {

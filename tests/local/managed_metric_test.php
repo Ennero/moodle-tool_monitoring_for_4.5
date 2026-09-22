@@ -69,6 +69,11 @@ use tool_monitoring\metric_value;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\managed_metric
+ */
 #[CoversClass(managed_metric::class)]
 final class managed_metric_test extends advanced_testcase {
     /**
@@ -79,6 +84,11 @@ final class managed_metric_test extends advanced_testcase {
      * @param moodle_exception|null $exception Expected exception to be thrown.
      * @param string|null $debugging Expected debugging message to be issued.
      * @throws coding_exception
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test___construct
      */
     #[DataProvider('provider_test___construct')]
     public function test___construct(
@@ -228,6 +238,11 @@ final class managed_metric_test extends advanced_testcase {
      * @param iterable<metric_value>|metric_value $testvalues Metric values to be produced by the test metric.
      * @throws coding_exception
      */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_iterator
+     */
     #[DataProvider('provider_test_iterator')]
     public function test_iterator(iterable|metric_value $testvalues): void {
         $this->resetAfterTest();
@@ -325,6 +340,11 @@ final class managed_metric_test extends advanced_testcase {
      * @throws JsonException
      * @throws ReflectionException
      */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_enable_disable
+     */
     #[DataProvider('provider_test_enable_disable')]
     public function test_enable_disable(bool $from, bool $to, array $events): void {
         global $DB, $USER;
@@ -404,8 +424,8 @@ final class managed_metric_test extends advanced_testcase {
     /**
      * Tests the {@see managed_metric::update_with_form_data} method.
      *
-     * @param metric $metric Metric to construct the test instance from.
      * @param metric_record $metricrecord Record to construct the test instance from.
+     * @param metric $metric Metric to construct the test instance from.
      * @param array<string, mixed> $formdata Passed as the argument to the method.
      * @param array<string, mixed> $expected Properties expected to be set after the call on both the instance and the DB record.
      * @param class-string<base_event>[] $events Names of event classes expected to be triggered in the given order.
@@ -414,10 +434,15 @@ final class managed_metric_test extends advanced_testcase {
      * @throws JsonException
      * @throws ReflectionException
      */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_update_with_form_data
+     */
     #[DataProvider('provider_test_update_with_form_data')]
     public function test_update_with_form_data(
-        metric $metric,
         metric_record $metricrecord,
+        metric $metric,
         array $formdata,
         array $expected,
         array $events = [],
@@ -701,6 +726,11 @@ final class managed_metric_test extends advanced_testcase {
      * @param array<string, mixed>|string $expected Expected properties on the new instance or exception class name.
      * @param string|null $debugging Expected debugging message.
      * @throws coding_exception
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_wake_from_cache
      */
     #[DataProvider('provider_test_wake_from_cache')]
     public function test_wake_from_cache(mixed $data, array|string $expected, string|null $debugging = null): void {

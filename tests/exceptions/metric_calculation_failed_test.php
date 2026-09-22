@@ -51,6 +51,12 @@ use PHPUnit\Framework\Attributes\DataProvider;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered classes.
+ *
+ * @covers \tool_monitoring\exceptions\metric_calculation_failed
+ * @covers \tool_monitoring\exceptions\tool_monitoring_exception
+ */
 #[CoversClass(metric_calculation_failed::class)]
 #[CoversClass(tool_monitoring_exception::class)]
 final class metric_calculation_failed_test extends advanced_testcase {
@@ -60,6 +66,11 @@ final class metric_calculation_failed_test extends advanced_testcase {
      * @param string $qualifiedname Passed to the constructor.
      * @param Exception $previous Original exception to wrap in an instance of {@see metric_calculation_failed} and expected output
      *                            from the {@see Exception::getPrevious `getPrevious`} method.
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test___construct
      */
     #[DataProvider('provider_test___construct')]
     public function test___construct(string $qualifiedname, Exception $previous): void {

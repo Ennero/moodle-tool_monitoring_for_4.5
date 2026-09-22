@@ -43,6 +43,9 @@ $monitoringcategory = new admin_category(
     name: 'tool_monitoring',
     visiblename: new lang_string('pluginname', 'tool_monitoring'),
 );
+if (!$ADMIN->locate('tools')) {
+    $ADMIN->add('modules', new admin_category('tools', new lang_string('tools', 'admin')));
+}
 /** @var admin_root $ADMIN */
 $ADMIN->add('tools', $monitoringcategory);
 

@@ -46,6 +46,11 @@ use PHPUnit\Framework\Attributes\CoversClass;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\metric_value
+ */
 #[CoversClass(metric_value::class)]
 final class metric_value_test extends advanced_testcase {
     public function test___construct(): void {

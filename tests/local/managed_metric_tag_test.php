@@ -56,6 +56,11 @@ use tool_monitoring\local\testing\test_metric_with_config;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\managed_metric_tag
+ */
 #[CoversClass(managed_metric_tag::class)]
 final class managed_metric_tag_test extends advanced_testcase {
     /**
@@ -70,7 +75,13 @@ final class managed_metric_tag_test extends advanced_testcase {
             'rawname' => 'Foo',
             'taginstanceid' => 42,
         ];
-        $tag = $this->getMockBuilder(managed_metric_tag::class)->setConstructorArgs([$mockrecord])->onlyMethods([])->getMock();
+        $tag = new class ($mockrecord) extends managed_metric_tag {
+            // phpcs:disable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
+            public function __construct(\stdClass $record) {
+                parent::__construct($record);
+            }
+            // phpcs:enable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
+        };
         // These should delegate to the parent implementations.
         self::assertTrue(isset($tag->id));
         self::assertSame(1, $tag->id);
@@ -85,7 +96,13 @@ final class managed_metric_tag_test extends advanced_testcase {
         self::assertEquals(new moodle_url('/tag/edit.php', ['id' => $tag->id]), $tag->editurl);
         // Test that tag instance ID is returned as `null` if missing from record.
         $mockrecord = (object) ['id' => 1, 'name' => 'foo'];
-        $tag = $this->getMockBuilder(managed_metric_tag::class)->setConstructorArgs([$mockrecord])->onlyMethods([])->getMock();
+        $tag = new class ($mockrecord) extends managed_metric_tag {
+            // phpcs:disable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
+            public function __construct(\stdClass $record) {
+                parent::__construct($record);
+            }
+            // phpcs:enable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
+        };
         self::assertFalse(isset($tag->taginstanceid));
         self::assertNull($tag->taginstanceid);
     }
@@ -112,6 +129,11 @@ final class managed_metric_tag_test extends advanced_testcase {
      * @throws coding_exception
      * @throws dml_exception
      * @throws tag_not_found
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_all_with_names
      */
     #[DataProvider('provider_test_get_all_with_names')]
     public function test_get_all_with_names(array $indb, array $names, string|null $exception = null): void {
@@ -270,6 +292,11 @@ final class managed_metric_tag_test extends advanced_testcase {
      * @param array<string, mixed>|string $expected Expected properties on the new instance or exception class name.
      * @param string|null $debugging Expected debugging message.
      * @throws coding_exception
+     */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_wake_from_cache
      */
     #[DataProvider('provider_test_wake_from_cache')]
     public function test_wake_from_cache(mixed $data, array|string $expected, string|null $debugging = null): void {

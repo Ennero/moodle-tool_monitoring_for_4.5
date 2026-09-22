@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
     paths:
       - '**.feature'
       - '**.js'
@@ -13,9 +12,6 @@ on:
       - '.github/workflows/*'
       - 'db/*'
   pull_request:
-    branches:
-      - main
-      - develop
     paths:
       - '**.feature'
       - '**.js'
@@ -56,35 +52,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - php: '8.1'
-            moodle-branch: MOODLE_404_STABLE
-          - php: '8.2'
-            moodle-branch: MOODLE_404_STABLE
-          - php: '8.3'
-            moodle-branch: MOODLE_404_STABLE
-          - php: '8.1'
-            moodle-branch: MOODLE_405_STABLE
-          - php: '8.2'
-            moodle-branch: MOODLE_405_STABLE
-          - php: '8.3'
-            moodle-branch: MOODLE_405_STABLE
-          - php: '8.2'
-            moodle-branch: MOODLE_500_STABLE
-          - php: '8.3'
-            moodle-branch: MOODLE_500_STABLE
-          - php: '8.4'
-            moodle-branch: MOODLE_500_STABLE
-          - php: '8.2'
-            moodle-branch: MOODLE_501_STABLE
-          - php: '8.3'
-            moodle-branch: MOODLE_501_STABLE
-          - php: '8.4'
-            moodle-branch: MOODLE_501_STABLE
-          - php: '8.3'
-            moodle-branch: MOODLE_502_STABLE
-          - php: '8.4'
-            moodle-branch: MOODLE_502_STABLE
+        php: ['8.1', '8.2', '8.3']
+        moodle-branch: [MOODLE_405_STABLE]
         database: [pgsql, mariadb]
 
     steps:
@@ -128,9 +97,8 @@ jobs:
 
       - name: Moodle Code Checker
         if: ${{ !cancelled() }}
-        # As of now, moodle-cs incorrectly analyzes `readonly` classes and complains about the `MOODLE_INTERNAL` check missing for `final readonly` class definitions.
-        # Until https://github.com/moodlehq/moodle-cs/pull/224 is merged (or the issue is fixed in another way), we have to ignore that sniff.
-        run: moodle-plugin-ci phpcs --exclude='moodle.Files.MoodleInternal' --max-warnings 0
+        # Moodle 4.5's checker does not recognize PHPUnit coverage attributes.
+        run: moodle-plugin-ci phpcs --exclude='moodle.Files.MoodleInternal,moodle.PHPUnit.TestCaseCovers' --max-warnings 0
         #run: moodle-plugin-ci phpcs --max-warnings 0
 
       # This has too many false positives and will be replaced completely by the Moodle Code Sniffer soon (hopefully).
