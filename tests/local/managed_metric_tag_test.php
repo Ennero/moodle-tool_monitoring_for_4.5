@@ -75,7 +75,11 @@ final class managed_metric_tag_test extends advanced_testcase {
             'rawname' => 'Foo',
             'taginstanceid' => 42,
         ];
-        $tag = $this->getMockBuilder(managed_metric_tag::class)->setConstructorArgs([$mockrecord])->onlyMethods([])->getMock();
+        $tag = new class($mockrecord) extends managed_metric_tag {
+            public function __construct(\stdClass $record) {
+                parent::__construct($record);
+            }
+        };
         // These should delegate to the parent implementations.
         self::assertTrue(isset($tag->id));
         self::assertSame(1, $tag->id);
@@ -90,7 +94,11 @@ final class managed_metric_tag_test extends advanced_testcase {
         self::assertEquals(new moodle_url('/tag/edit.php', ['id' => $tag->id]), $tag->editurl);
         // Test that tag instance ID is returned as `null` if missing from record.
         $mockrecord = (object) ['id' => 1, 'name' => 'foo'];
-        $tag = $this->getMockBuilder(managed_metric_tag::class)->setConstructorArgs([$mockrecord])->onlyMethods([])->getMock();
+        $tag = new class($mockrecord) extends managed_metric_tag {
+            public function __construct(\stdClass $record) {
+                parent::__construct($record);
+            }
+        };
         self::assertFalse(isset($tag->taginstanceid));
         self::assertNull($tag->taginstanceid);
     }
