@@ -55,6 +55,7 @@ use tool_monitoring\registered_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\output\overview */
 #[CoversClass(overview::class)]
 final class overview_test extends advanced_testcase {
     /**
@@ -66,6 +67,7 @@ final class overview_test extends advanced_testcase {
      * @param array<string, test_metric_tag> $tags Tags to pass to the constructor, indexed by normalized tag name.
      * @throws moodle_exception
      */
+    /** @dataProvider provider_test_export_for_template */
     #[DataProvider('provider_test_export_for_template')]
     public function test_export_for_template(array $metrics, array $tags, bool $tagsenabled): void {
         $this->resetAfterTest();

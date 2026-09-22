@@ -48,6 +48,7 @@ use tool_monitoring\metric_value;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\metrics\user_accounts */
 #[CoversClass(user_accounts::class)]
 final class user_accounts_test extends advanced_testcase {
     public function test_get_type(): void {

@@ -56,6 +56,7 @@ use tool_monitoring\local\testing\test_metric_with_config;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\managed_metric_tag */
 #[CoversClass(managed_metric_tag::class)]
 final class managed_metric_tag_test extends advanced_testcase {
     /**
@@ -113,6 +114,7 @@ final class managed_metric_tag_test extends advanced_testcase {
      * @throws dml_exception
      * @throws tag_not_found
      */
+    /** @dataProvider provider_test_get_all_with_names */
     #[DataProvider('provider_test_get_all_with_names')]
     public function test_get_all_with_names(array $indb, array $names, string|null $exception = null): void {
         $this->resetAfterTest();
@@ -271,6 +273,7 @@ final class managed_metric_tag_test extends advanced_testcase {
      * @param string|null $debugging Expected debugging message.
      * @throws coding_exception
      */
+    /** @dataProvider provider_test_wake_from_cache */
     #[DataProvider('provider_test_wake_from_cache')]
     public function test_wake_from_cache(mixed $data, array|string $expected, string|null $debugging = null): void {
         if (is_string($expected)) {

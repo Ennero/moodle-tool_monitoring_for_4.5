@@ -63,6 +63,7 @@ use tool_monitoring\local\testing\test_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\privacy\provider */
 #[CoversClass(provider::class)]
 final class provider_test extends advanced_testcase {
     protected function setUp(): void {

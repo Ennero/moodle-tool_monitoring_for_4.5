@@ -61,6 +61,7 @@ use tool_monitoring\metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\metrics_manager */
 #[CoversClass(metrics_manager::class)]
 final class metrics_manager_test extends advanced_testcase {
     public function test___construct(): void {
@@ -106,6 +107,7 @@ final class metrics_manager_test extends advanced_testcase {
      * @throws tag_not_found
      * @throws tags_disabled
      */
+    /** @dataProvider provider_test_filter */
     #[DataProvider('provider_test_filter')]
     public function test_filter(
         array $collected,
@@ -437,6 +439,7 @@ final class metrics_manager_test extends advanced_testcase {
      * @throws tag_not_found
      * @throws tags_disabled
      */
+    /** @dataProvider provider_test_sync */
     #[DataProvider('provider_test_sync')]
     public function test_sync(
         array $collected,
@@ -705,6 +708,7 @@ final class metrics_manager_test extends advanced_testcase {
      * @throws dml_exception
      * @throws metric_name_invalid
      */
+    /** @dataProvider provider_test_sync_throws_on_invalid_collection */
     #[DataProvider('provider_test_sync_throws_on_invalid_collection')]
     public function test_sync_throws_on_invalid_collection(string $name, tool_monitoring_exception $exception): void {
         $this->resetAfterTest();

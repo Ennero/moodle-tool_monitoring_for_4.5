@@ -58,6 +58,7 @@ use tool_monitoring\metric_value;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \monitoringexporter_prometheus\exporter */
 #[CoversClass(exporter::class)]
 final class exporter_test extends advanced_testcase {
     /**
@@ -70,6 +71,7 @@ final class exporter_test extends advanced_testcase {
      * @param string $expected Expected output.
      * @throws coding_exception
      */
+    /** @dataProvider provider_test_export */
     #[DataProvider('provider_test_export')]
     public function test_export(array $metrics, string $expected): void {
         $arguments = [];

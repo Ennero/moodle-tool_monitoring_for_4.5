@@ -49,6 +49,7 @@ use tool_monitoring\local\metrics\user_accounts;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\metrics_cache */
 #[CoversClass(metrics_cache::class)]
 final class metrics_cache_test extends advanced_testcase {
     /**

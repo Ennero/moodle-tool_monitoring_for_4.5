@@ -58,6 +58,7 @@ use tool_monitoring\local\managed_metric_tag;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\event\observer */
 #[CoversClass(observer::class)]
 final class observer_test extends advanced_testcase {
     /**
@@ -107,6 +108,7 @@ final class observer_test extends advanced_testcase {
      * @throws coding_exception
      * @throws dml_exception
      */
+    /** @dataProvider provider_test_tag_instance_added_or_removed */
     #[DataProvider('provider_test_tag_instance_added_or_removed')]
     public function test_tag_instance_added_or_removed(string $eventclass): void {
         global $DB;
@@ -164,6 +166,7 @@ final class observer_test extends advanced_testcase {
      * @throws coding_exception
      * @throws dml_exception
      */
+    /** @dataProvider provider_test_tag_created_or_deleted_or_updated */
     #[DataProvider('provider_test_tag_created_or_deleted_or_updated')]
     public function test_tag_created_or_deleted_or_updated(string $eventclass, bool $expectpurge): void {
         $this->resetAfterTest();

@@ -47,6 +47,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \monitoringexporter_prometheus\privacy\provider */
 #[CoversClass(provider::class)]
 final class provider_test extends advanced_testcase {
     public function test_get_reason(): void {

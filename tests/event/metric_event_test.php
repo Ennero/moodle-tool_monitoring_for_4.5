@@ -54,6 +54,13 @@ use tool_monitoring\local\testing\test_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/**
+ * @covers \tool_monitoring\event\metric_config_updated
+ * @covers \tool_monitoring\event\metric_deleted
+ * @covers \tool_monitoring\event\metric_disabled
+ * @covers \tool_monitoring\event\metric_enabled
+ * @covers \tool_monitoring\event\metric_event
+ */
 #[CoversClass(metric_config_updated::class)]
 #[CoversClass(metric_deleted::class)]
 #[CoversClass(metric_disabled::class)]
@@ -70,6 +77,7 @@ final class metric_event_test extends advanced_testcase {
      * @param string $description Expected output of the {@see metric_event::get_description `get_description`} method.
      * @throws moodle_exception
      */
+    /** @dataProvider provider_test_all_methods */
     #[DataProvider('provider_test_all_methods')]
     public function test_all_methods(
         string $eventclass,

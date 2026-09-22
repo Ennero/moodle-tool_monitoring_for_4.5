@@ -51,6 +51,7 @@ use tool_monitoring\form\config as config_form;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\metrics\quiz_attempts_in_progress_config */
 #[CoversClass(quiz_attempts_in_progress_config::class)]
 final class quiz_attempts_in_progress_config_test extends advanced_testcase {
     #[\Override]
@@ -68,6 +69,7 @@ final class quiz_attempts_in_progress_config_test extends advanced_testcase {
      * @param array<float|int>|string $expected Expected properties or exception class name if an exception is expected.
      * @throws coding_exception
      */
+    /** @dataProvider provider_test___construct */
     #[DataProvider('provider_test___construct')]
     public function test___construct(int $maxidleseconds, int $maxdeadlineseconds, array|string $expected): void {
         if (is_string($expected)) {
@@ -129,6 +131,7 @@ final class quiz_attempts_in_progress_config_test extends advanced_testcase {
      * @param array $data Form data to validate.
      * @param array $expected Expected validation errors.
      */
+    /** @dataProvider provider_test_extend_form_validation */
     #[DataProvider('provider_test_extend_form_validation')]
     public function test_extend_form_validation(array $data, array $expected): void {
         $mockmform = $this->createMock(MoodleQuickForm::class);

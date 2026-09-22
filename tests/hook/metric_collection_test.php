@@ -49,6 +49,7 @@ use tool_monitoring\local\metrics\user_accounts;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\hook\metric_collection */
 #[CoversClass(metric_collection::class)]
 final class metric_collection_test extends advanced_testcase {
     public function test_get_hook_description(): void {

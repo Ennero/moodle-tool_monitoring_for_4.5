@@ -48,6 +48,7 @@ use tool_monitoring\metric_type;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+/** @covers \tool_monitoring\local\metrics\quiz_attempts_in_progress */
 #[CoversClass(quiz_attempts_in_progress::class)]
 final class quiz_attempts_in_progress_test extends advanced_testcase {
     public function test_get_type(): void {
