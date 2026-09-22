@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: promote-develop-to-main
@@ -21,18 +22,24 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-22.04
     steps:
-      - name: Check out main
-        uses: actions/checkout@v6
-        with:
-          ref: main
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Fast-forward main to verified develop
+      - name: Open promotion pull request
+        id: promotion
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git fetch origin main develop --prune
-          git switch main
-          git merge --ff-only origin/develop
-          git push origin main
+          existing=$(gh pr list --base main --head develop --state open --json number --jq '.[0].number')
+          if [[ -n "$existing" ]]; then
+            echo "number=$existing" >> "$GITHUB_OUTPUT"
+          else
+            number=$(gh pr create \
+              --base main \
+              --head develop \
+              --title 'chore: promote verified develop to main' \
+              --body 'This pull request is opened automatically after Moodle Plugin CI passes on develop.')
+            echo "number=${number##*/}" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge promotion pull request
+        run: gh pr merge "${{ steps.promotion.outputs.number }}" --merge --delete-branch=false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
