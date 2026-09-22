@@ -1,0 +1,45 @@
+name: Promote develop to main
+
+on:
+  workflow_run:
+    workflows:
+      - Moodle Plugin CI
+    types:
+      - completed
+    branches:
+      - develop
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: promote-develop-to-main
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Open promotion pull request
+        id: promotion
+        run: |
+          existing=$(gh pr list --base main --head develop --state open --json number --jq '.[0].number')
+          if [[ -n "$existing" ]]; then
+            echo "number=$existing" >> "$GITHUB_OUTPUT"
+          else
+            number=$(gh pr create \
+              --base main \
+              --head develop \
+              --title 'chore: promote verified develop to main' \
+              --body 'This pull request is opened automatically after Moodle Plugin CI passes on develop.')
+            echo "number=${number##*/}" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Merge promotion pull request
+        run: gh pr merge "${{ steps.promotion.outputs.number }}" --merge --delete-branch=false
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -20,6 +20,7 @@
  * Moodle 4.5 and later use the Routing API controller instead.
  *
  * @package    monitoringexporter_prometheus
+ * @copyright  2025 MootDACH DevCamp
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -31,6 +32,7 @@ use tool_monitoring\exceptions\tag_not_found;
 use tool_monitoring\exceptions\tags_disabled;
 use tool_monitoring\registered_metrics;
 
+// phpcs:ignore moodle.Files.RequireLogin.Missing -- Authentication uses the configured Prometheus token.
 require_once(__DIR__ . '/../../../../../config.php');
 
 $expectedtoken = (string) get_config('monitoringexporter_prometheus', 'prometheus_token');
