@@ -75,7 +75,7 @@ final class managed_metric_tag_test extends advanced_testcase {
             'rawname' => 'Foo',
             'taginstanceid' => 42,
         ];
-        $tag = new class($mockrecord) extends managed_metric_tag {
+        $tag = new class ($mockrecord) extends managed_metric_tag {
             public function __construct(\stdClass $record) {
                 parent::__construct($record);
             }
@@ -94,7 +94,7 @@ final class managed_metric_tag_test extends advanced_testcase {
         self::assertEquals(new moodle_url('/tag/edit.php', ['id' => $tag->id]), $tag->editurl);
         // Test that tag instance ID is returned as `null` if missing from record.
         $mockrecord = (object) ['id' => 1, 'name' => 'foo'];
-        $tag = new class($mockrecord) extends managed_metric_tag {
+        $tag = new class ($mockrecord) extends managed_metric_tag {
             public function __construct(\stdClass $record) {
                 parent::__construct($record);
             }
