@@ -76,9 +76,11 @@ final class managed_metric_tag_test extends advanced_testcase {
             'taginstanceid' => 42,
         ];
         $tag = new class ($mockrecord) extends managed_metric_tag {
+            // phpcs:disable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
             public function __construct(\stdClass $record) {
                 parent::__construct($record);
             }
+            // phpcs:enable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
         };
         // These should delegate to the parent implementations.
         self::assertTrue(isset($tag->id));
@@ -95,9 +97,11 @@ final class managed_metric_tag_test extends advanced_testcase {
         // Test that tag instance ID is returned as `null` if missing from record.
         $mockrecord = (object) ['id' => 1, 'name' => 'foo'];
         $tag = new class ($mockrecord) extends managed_metric_tag {
+            // phpcs:disable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
             public function __construct(\stdClass $record) {
                 parent::__construct($record);
             }
+            // phpcs:enable moodle.Commenting.MissingDocblock.MissingTestcaseMethodDescription,Generic.CodeAnalysis.UselessOverridingMethod.Found
         };
         self::assertFalse(isset($tag->taginstanceid));
         self::assertNull($tag->taginstanceid);
