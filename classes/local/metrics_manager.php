@@ -51,7 +51,7 @@ use tool_monitoring\registered_metrics;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class metrics_manager implements cache_data_source_interface, registered_metrics {
+final class metrics_manager implements cache_data_source_interface, registered_metrics {
     /**
      * Constructor without additional logic.
      *
@@ -72,7 +72,7 @@ final readonly class metrics_manager implements cache_data_source_interface, reg
      */
     public function __construct(
         /** @var metric_collection Metric collection being managed. */
-        public metric_collection $collection
+        public readonly metric_collection $collection
     ) {}
 
     /**

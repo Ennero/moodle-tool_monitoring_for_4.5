@@ -37,7 +37,7 @@ use tool_monitoring\registered_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class overview implements renderable, templatable {
+final class overview implements renderable, templatable {
     /**
      * Constructor without additional logic.
      *
@@ -48,9 +48,9 @@ final readonly class overview implements renderable, templatable {
      */
     public function __construct(
         /** @var iterable<string, registered_metric> Metrics for which to render the overview, indexed by qualified name. */
-        private iterable $metrics,
+        private readonly iterable $metrics,
         /** @var array<string, metric_tag> Tags used to filter the metrics by, indexed by normalized tag name. */
-        private array $tags
+        private readonly array $tags
     ) {}
 
     /**

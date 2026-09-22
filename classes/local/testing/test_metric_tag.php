@@ -36,12 +36,12 @@ use tool_monitoring\metric_tag;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class test_metric_tag implements metric_tag {
+final class test_metric_tag implements metric_tag {
     /** @var string Tag name as set by the user. */
-    public string $rawname;
+    public readonly string $rawname;
 
     /** @var moodle_url URL to the tag editing page. */
-    public moodle_url $editurl;
+    public readonly moodle_url $editurl;
 
     /**
      * Convenience constructor.
@@ -57,12 +57,12 @@ final readonly class test_metric_tag implements metric_tag {
      */
     public function __construct(
         /** @var string Normalized tag name. */
-        public string $name,
+        public readonly string $name,
         string|null $rawname = null,
         /** @var int Tag ID. */
-        public int $id = 0,
+        public readonly int $id = 0,
         /** @var int|null Tag instance ID (link between tag and metric). */
-        public int|null $taginstanceid = null,
+        public readonly int|null $taginstanceid = null,
     ) {
         $this->rawname = $rawname ?? $name;
         $this->editurl = new moodle_url('/tag/edit.php', ['id' => $this->id]);
