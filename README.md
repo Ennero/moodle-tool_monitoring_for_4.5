@@ -79,11 +79,12 @@ This fork follows a Gitflow-style workflow:
 
 1. `develop` is the integration branch for compatibility work and upstream updates.
 2. Feature and maintenance branches merge into `develop` through pull requests.
-3. `main` receives reviewed release merges from `develop`.
+3. After CI passes on `develop`, GitHub Actions opens and merges the promotion pull request into `main`.
+4. The same CI runs again on `main` after promotion.
 
 The `Upstream sync` GitHub Actions workflow runs weekly and can also be started manually. It fetches `main` from the original [Moodle Monitoring repository][upstream repository], merges it into `develop`, and opens a pull request when changes are available. A merge conflict stops the workflow so it can be resolved manually; it never pushes a conflicted result.
 
-Upstream pull requests must be reviewed for Moodle 4.4 compatibility, fork-specific metadata, the legacy Prometheus endpoint, documentation, and the CI matrix before merging.
+The `main` branch is protected and does not accept direct pushes. Upstream pull requests and feature pull requests must be reviewed for Moodle 4.4 compatibility, fork-specific metadata, the legacy Prometheus endpoint, documentation, and the CI matrix before merging.
 
 ## Usage
 
