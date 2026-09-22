@@ -38,8 +38,10 @@ jobs:
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
 
       - name: Merge promotion pull request
         run: gh pr merge "${{ steps.promotion.outputs.number }}" --merge --delete-branch=false
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
