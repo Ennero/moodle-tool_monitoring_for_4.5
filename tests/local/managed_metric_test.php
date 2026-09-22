@@ -424,8 +424,8 @@ final class managed_metric_test extends advanced_testcase {
     /**
      * Tests the {@see managed_metric::update_with_form_data} method.
      *
-     * @param metric $metric Metric to construct the test instance from.
      * @param metric_record $metricrecord Record to construct the test instance from.
+     * @param metric $metric Metric to construct the test instance from.
      * @param array<string, mixed> $formdata Passed as the argument to the method.
      * @param array<string, mixed> $expected Properties expected to be set after the call on both the instance and the DB record.
      * @param class-string<base_event>[] $events Names of event classes expected to be triggered in the given order.
@@ -441,8 +441,8 @@ final class managed_metric_test extends advanced_testcase {
      */
     #[DataProvider('provider_test_update_with_form_data')]
     public function test_update_with_form_data(
-        metric $metric,
         metric_record $metricrecord,
+        metric $metric,
         array $formdata,
         array $expected,
         array $events = [],

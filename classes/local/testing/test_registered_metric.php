@@ -103,7 +103,7 @@ class test_registered_metric implements registered_metric {
             enabled: $enabled,
             tags: $tags,
             config: $config,
-            values: $values instanceof metric_value ? [$values] : iterator_to_array($values),
+            values: $values instanceof metric_value ? [$values] : (is_array($values) ? $values : iterator_to_array($values)),
         );
     }
 

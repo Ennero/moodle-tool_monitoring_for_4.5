@@ -28,7 +28,7 @@ namespace tool_monitoring;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class metric_value {
+final class metric_value {
     /**
      * Constructor without additional logic.
      *
@@ -39,8 +39,8 @@ final readonly class metric_value {
      */
     public function __construct(
         /** @var float|int Actual numeric value of the metric some moment in time. */
-        public float|int $value,
+        public readonly float|int $value,
         /** @var array<string, string> Associative array of label names and label values. */
-        public array $label = [],
+        public readonly array $label = [],
     ) {}
 }

@@ -44,6 +44,9 @@ $monitoringcategory = new admin_category(
     visiblename: new lang_string('pluginname', 'tool_monitoring'),
 );
 /** @var admin_root $ADMIN */
+if (!$ADMIN->locate('tools')) {
+    $ADMIN->add('modules', new admin_category('tools', new lang_string('tools', 'admin')));
+}
 $ADMIN->add('tools', $monitoringcategory);
 
 // Create a link to the metrics overview page and add it as the first item in the monitoring category.

@@ -48,7 +48,7 @@ require_once(__DIR__ . '/../../../../../../../lib/behat/behat_base.php');
  */
 class behat_monitoringexporter_prometheus extends behat_base {
     /** @var string URL path to the Prometheus endpoint. */
-    private const URL_PATH = '/r.php/monitoringexporter_prometheus/metrics';
+    private const URL_PATH = '/admin/tool/monitoring/exporter/prometheus/metrics.php';
 
     /**
      * Visits the Prometheus endpoint, optionally passing query parameters.

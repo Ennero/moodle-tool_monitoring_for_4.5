@@ -35,12 +35,12 @@ use tool_monitoring\metric_config_form_aware;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class users_online_config implements metric_config_form_aware {
+final class users_online_config implements metric_config_form_aware {
     /**
      * @var array<float|int> Maximum number of seconds since the last user access for it to be counted.
      *                       A separate (labeled) metric value shall be produced for each value in this array.
      */
-    public array $timewindows;
+    public readonly array $timewindows;
 
     /**
      * Takes the `timewindows` values, sorts them numerically, and removes duplicates.
