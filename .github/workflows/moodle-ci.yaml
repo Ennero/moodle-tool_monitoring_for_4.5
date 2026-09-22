@@ -13,6 +13,9 @@ on:
       - '.github/workflows/*'
       - 'db/*'
   pull_request:
+    branches:
+      - main
+      - develop
     paths:
       - '**.feature'
       - '**.js'
