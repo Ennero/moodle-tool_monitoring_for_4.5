@@ -52,7 +52,11 @@ use PHPUnit\Framework\Attributes\DataProvider;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\plugininfo\monitoringexporter */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\plugininfo\monitoringexporter
+ */
 #[CoversClass(monitoringexporter::class)]
 final class monitoringexporter_test extends advanced_testcase {
     public static function setUpBeforeClass(): void {
@@ -73,7 +77,11 @@ final class monitoringexporter_test extends advanced_testcase {
      *
      * @throws coding_exception
      */
-    /** @dataProvider provider_test_load_settings */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_load_settings
+     */
     #[DataProvider('provider_test_load_settings')]
     public function test_load_settings(bool $hassiteconfig, string $rootdir, bool $installedandupgraded = true): void {
         // Set up a mock plugin info instance.

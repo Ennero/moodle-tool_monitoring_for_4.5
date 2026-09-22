@@ -52,7 +52,11 @@ use tool_monitoring\local\testing\test_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\local\metric_record */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\metric_record
+ */
 #[CoversClass(metric_record::class)]
 final class metric_record_test extends advanced_testcase {
     public function test_magic_methods(): void {
@@ -68,7 +72,11 @@ final class metric_record_test extends advanced_testcase {
      * @param array<string, mixed>|stdClass $data Passed to the method.
      * @param array<string, mixed> $expected Expected properties on the returned instance.
      */
-    /** @dataProvider provider_test_from_data */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_from_data
+     */
     #[DataProvider('provider_test_from_data')]
     public function test_from_data(array|stdClass $data, array $expected): void {
         $record = metric_record::from_data($data);
@@ -149,7 +157,11 @@ final class metric_record_test extends advanced_testcase {
      * @param string[] $fields Passed to the method.
      * @param array<string, mixed> $expected Expected return value.
      */
-    /** @dataProvider provider_test_to_array */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_to_array
+     */
     #[DataProvider('provider_test_to_array')]
     public function test_to_array(metric_record $record, array $fields, array $expected): void {
         $output = $record->to_array($fields);
@@ -215,7 +227,11 @@ final class metric_record_test extends advanced_testcase {
      * @throws coding_exception
      * @throws dml_exception
      */
-    /** @dataProvider provider_test_insert_many */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_insert_many
+     */
     #[DataProvider('provider_test_insert_many')]
     public function test_insert_many(array $instances): void {
         global $DB;
@@ -305,7 +321,11 @@ final class metric_record_test extends advanced_testcase {
      * @param array<string, mixed> $expected Expected DB row values (excluding auto-stamped `timemodified`/`usermodified`).
      * @throws dml_exception
      */
-    /** @dataProvider provider_test_update */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_update
+     */
     #[DataProvider('provider_test_update')]
     public function test_update(
         metric_record $record,
@@ -397,7 +417,11 @@ final class metric_record_test extends advanced_testcase {
      * @param string $name Name input.
      * @param string $expected Expected return value name.
      */
-    /** @dataProvider provider_test_get_qualified_name */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_qualified_name
+     */
     #[DataProvider('provider_test_get_qualified_name')]
     public function test_get_qualified_name(string $component, string $name, string $expected): void {
         self::assertSame($expected, metric_record::get_qualified_name($component, $name));

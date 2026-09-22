@@ -55,7 +55,11 @@ use tool_monitoring\local\testing\test_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\form\config */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\form\config
+ */
 #[CoversClass(config::class)]
 final class config_test extends advanced_testcase {
     /**
@@ -72,7 +76,11 @@ final class config_test extends advanced_testcase {
      * @throws JsonException
      * @throws metric_config_invalid
      */
-    /** @dataProvider provider_test_all_methods */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_all_methods
+     */
     #[DataProvider('provider_test_all_methods')]
     public function test_all_methods(
         managed_metric $metric,

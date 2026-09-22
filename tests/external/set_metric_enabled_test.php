@@ -64,7 +64,11 @@ use tool_monitoring\metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\external\set_metric_enabled */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\external\set_metric_enabled
+ */
 #[CoversClass(set_metric_enabled::class)]
 final class set_metric_enabled_test extends advanced_testcase {
     public function test_execute_parameters(): void {
@@ -91,7 +95,11 @@ final class set_metric_enabled_test extends advanced_testcase {
      * @throws required_capability_exception
      * @throws restricted_context_exception
      */
-    /** @dataProvider provider_test_execute */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_execute
+     */
     #[DataProvider('provider_test_execute')]
     public function test_execute(
         array $metricscollected,

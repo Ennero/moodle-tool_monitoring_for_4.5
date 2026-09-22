@@ -53,7 +53,11 @@ use tool_monitoring\metric_value;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\local\metrics\overdue_tasks */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\metrics\overdue_tasks
+ */
 #[CoversClass(overdue_tasks::class)]
 final class overdue_tasks_test extends advanced_testcase {
     public static function setUpBeforeClass(): void {

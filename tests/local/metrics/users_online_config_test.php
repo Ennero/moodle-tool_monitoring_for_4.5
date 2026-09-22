@@ -52,7 +52,11 @@ use tool_monitoring\form\config as config_form;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\local\metrics\users_online_config */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\local\metrics\users_online_config
+ */
 #[CoversClass(users_online_config::class)]
 final class users_online_config_test extends advanced_testcase {
     #[\Override]
@@ -71,7 +75,11 @@ final class users_online_config_test extends advanced_testcase {
      *                                          exception class name if an exception is expected.
      * @throws coding_exception
      */
-    /** @dataProvider provider_test___construct */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test___construct
+     */
     #[DataProvider('provider_test___construct')]
     public function test___construct(array $timewindows, array|string $expected): void {
         if (is_string($expected)) {
@@ -129,7 +137,15 @@ final class users_online_config_test extends advanced_testcase {
         self::assertSame('{"timewindows":[1,2,3]}', json_encode($config));
     }
 
-    /** @dataProvider provider_test_from_json */
+    /**
+
+     * Tests data supplied by the provider.
+
+     *
+
+     * @dataProvider provider_test_from_json
+
+     */
     #[DataProvider('provider_test_from_json')]
     public function test_from_json(string $json, array|string $expected): void {
         if (is_string($expected)) {
@@ -173,7 +189,15 @@ final class users_online_config_test extends advanced_testcase {
         ];
     }
 
-    /** @dataProvider provider_test_with_form_data */
+    /**
+
+     * Tests data supplied by the provider.
+
+     *
+
+     * @dataProvider provider_test_with_form_data
+
+     */
     #[DataProvider('provider_test_with_form_data')]
     public function test_with_form_data(stdClass $data, array|string $expected): void {
         if (is_string($expected)) {
@@ -239,7 +263,11 @@ final class users_online_config_test extends advanced_testcase {
      * @param array|string $expected Expected validation errors; exception class name if an exception is expected.
      * @throws coding_exception
      */
-    /** @dataProvider provider_test_extend_form_validation */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_extend_form_validation
+     */
     #[DataProvider('provider_test_extend_form_validation')]
     public function test_extend_form_validation(array $data, array|string $expected): void {
         $mockmform = $this->createMock(MoodleQuickForm::class);

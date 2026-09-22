@@ -54,7 +54,11 @@ use tool_monitoring\local\metrics\users_online;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-/** @covers \tool_monitoring\metric */
+/**
+ * Tests the covered class.
+ *
+ * @covers \tool_monitoring\metric
+ */
 #[CoversClass(metric::class)]
 final class metric_test extends advanced_testcase {
     public function test___construct(): void {
@@ -85,7 +89,11 @@ final class metric_test extends advanced_testcase {
      * @param lang_string $expected Expected return value.
      * @throws coding_exception
      */
-    /** @dataProvider provider_test_get_description */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_description
+     */
     #[DataProvider('provider_test_get_description')]
     public function test_get_description(metric $metric, lang_string $expected): void {
         $description = $metric->get_description();
@@ -118,7 +126,11 @@ final class metric_test extends advanced_testcase {
      * @param metric $metric Metric to test with.
      * @param string $expected Expected return value.
      */
-    /** @dataProvider provider_test_get_name */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_name
+     */
     #[DataProvider('provider_test_get_name')]
     public function test_get_name(metric $metric, string $expected): void {
         self::assertSame($expected, $metric->get_name());
@@ -152,7 +164,11 @@ final class metric_test extends advanced_testcase {
      * @param metric $metric Metric to test with.
      * @param string $expected Expected return value.
      */
-    /** @dataProvider provider_test_get_component */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test_get_component
+     */
     #[DataProvider('provider_test_get_component')]
     public function test_get_component(metric $metric, string $expected): void {
         self::assertSame($expected, $metric->get_component());

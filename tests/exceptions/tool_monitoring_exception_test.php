@@ -50,6 +50,8 @@ use PHPUnit\Framework\Attributes\DataProvider;
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 /**
+ * Tests the covered classes.
+ *
  * @covers \tool_monitoring\exceptions\form_data_value_missing
  * @covers \tool_monitoring\exceptions\json_invalid
  * @covers \tool_monitoring\exceptions\json_key_missing
@@ -80,7 +82,11 @@ final class tool_monitoring_exception_test extends advanced_testcase {
      * @param string $module Expected {@see moodle_exception::$module `module`} value of the exception instance.
      * @param string $message Expected message returned by the exception's {@see Exception::getMessage `getMessage`} method.
      */
-    /** @dataProvider provider_test___construct */
+    /**
+     * Tests data supplied by the provider.
+     *
+     * @dataProvider provider_test___construct
+     */
     #[DataProvider('provider_test___construct')]
     public function test___construct(
         string $exceptionclass,
