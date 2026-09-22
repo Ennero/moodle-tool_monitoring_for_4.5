@@ -37,9 +37,9 @@ use tool_monitoring\local\managed_metric;
  *             Melanie Treitinger <melanie.treitinger@ruhr-uni-bochum.de>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-final readonly class configure implements renderable, templatable {
+final class configure implements renderable, templatable {
     /** @var config_form Metric config form to be rendered. */
-    private config_form $form;
+    private readonly config_form $form;
 
     /**
      * Instantiates the underlying {@see config_form} for the specified metric.

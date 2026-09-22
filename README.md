@@ -11,6 +11,8 @@ Development started at the 2025 [Moodle Moot DACH][moodlemootdach home] DevCamp,
 
 - [Features](#features)
 - [Installation](#installation)
+- [Compatibility](#compatibility)
+- [Development workflow](#development-workflow)
 - [Usage](#usage)
   - [Admin Settings](#admin-settings)
   - [Grouping metrics with tags (optional)](#grouping-metrics-with-tags-optional)
@@ -46,21 +48,42 @@ Development started at the 2025 [Moodle Moot DACH][moodlemootdach home] DevCamp,
 
 ## Installation
 
-The minimum supported Moodle version is [**5.0**][moodle docs release 5.0] (build 2025041400).
+This fork supports Moodle [**4.4**][moodle docs release 4.4] and later Moodle 4.x and 5.x releases covered by the plugin metadata.
+The minimum required build is `2024042200` (Moodle 4.4).
+
+Moodle 4.4 requires PHP 8.1. The plugin avoids PHP language features newer than PHP 8.1.
 
 You install `tool_monitoring` just like any other Moodle plugin.
 Starting with Moodle [**5.1**][moodle docs release 5.1], it belongs in the `public/admin/tool/monitoring` directory.
-(For Moodle 5.0 it goes into `admin/tool/monitoring`.)
+(For Moodle 4.4, 4.5 and 5.0 it goes into `admin/tool/monitoring`.)
 
 For example, using `git` from the root directory of your Moodle 5.1+ installation:
 
 ```shell
 $ git clone \
-      https://github.com/daniil-berg/moodle-tool_monitoring.git \
+  https://github.com/Ennero/moodle-tool_monitoring_for_4.5.git \
       public/admin/tool/monitoring
 ```
 
 For other options and general plugin installation instructions, see the [official Moodle documentation][moodle docs plugin install].
+
+### Compatibility
+
+The fork deliberately targets Moodle 4.4 and newer. Moodle 4.4 is the first release with the Dependency Injection API used by the metrics manager. Moodle 4.5 introduced the Routing API used by the modern Prometheus endpoint; on Moodle 4.4 the exporter is available through the direct legacy endpoint `/admin/tool/monitoring/exporter/prometheus/metrics.php`.
+
+Moodle 4.0-4.3 are intentionally outside this fork's supported range. They require a legacy metric-registration path without DI (and Moodle 4.0/4.1 additionally require PHP 7.3/7.4 compatibility). Future Moodle releases may work without code changes, but should be verified with the Moodle upgrade and PHPUnit test suites before being added to the metadata range.
+
+### Development workflow
+
+This fork follows a Gitflow-style workflow:
+
+1. `develop` is the integration branch for compatibility work and upstream updates.
+2. Feature and maintenance branches merge into `develop` through pull requests.
+3. `main` receives reviewed release merges from `develop`.
+
+The `Upstream sync` GitHub Actions workflow runs weekly and can also be started manually. It fetches `main` from the original [Moodle Monitoring repository][upstream repository], merges it into `develop`, and opens a pull request when changes are available. A merge conflict stops the workflow so it can be resolved manually; it never pushes a conflicted result.
+
+Upstream pull requests must be reviewed for Moodle 4.4 compatibility, fork-specific metadata, the legacy Prometheus endpoint, documentation, and the CI matrix before merging.
 
 ## Usage
 
@@ -125,6 +148,8 @@ So if your Moodle web root is `https://example.com`, the full URL will look like
 > See the relevant [Moodle documentation][moodle docs routing config] for details.
 
 That endpoint can be secured by specifying an access token (shared secret) in the `monitoringexporter_prometheus | prometheus_token` setting.
+
+On Moodle 4.4, where the Routing API is not available, use `/admin/tool/monitoring/exporter/prometheus/metrics.php` instead.
 
 > [!WARNING]
 > **The endpoint is unauthenticated by default.**
@@ -709,7 +734,8 @@ You should have received a copy of the GNU General Public License along with `to
 [moodle docs hook instance]: https://moodledev.io/docs/apis/core/hooks#hook-instance
 [moodle docs hooks.db]: https://moodledev.io/docs/apis/core/hooks#registering-of-hook-callbacks
 [moodle docs plugin install]: https://docs.moodle.org/en/Installing_plugins#Installing_a_plugin
-[moodle docs release 5.0]: https://moodledev.io/general/releases/5.0
+[moodle docs release 4.4]: https://moodledev.io/general/releases/4.4
+[moodle docs release 4.5]: https://moodledev.io/general/releases/4.5
 [moodle docs release 5.1]: https://moodledev.io/general/releases/5.1
 [moodle docs routing api]: https://moodledev.io/docs/apis/subsystems/routing
 [moodle docs routing config]: https://docs.moodle.org/en/Configuring_the_Router
@@ -723,3 +749,4 @@ You should have received a copy of the GNU General Public License along with `to
 [prometheus docs data model]: https://prometheus.io/docs/concepts/data_model
 [prometheus docs instances]: https://prometheus.io/docs/concepts/jobs_instances
 [prometheus home]: https://prometheus.io
+[upstream repository]: https://github.com/daniil-berg/moodle-tool_monitoring
