@@ -11,6 +11,8 @@ Development started at the 2025 [Moodle Moot DACH][moodlemootdach home] DevCamp,
 
 - [Features](#features)
 - [Installation](#installation)
+- [Compatibility](#compatibility)
+- [Development and CI](#development-and-ci)
 - [Usage](#usage)
   - [Admin Settings](#admin-settings)
   - [Grouping metrics with tags (optional)](#grouping-metrics-with-tags-optional)
@@ -46,21 +48,28 @@ Development started at the 2025 [Moodle Moot DACH][moodlemootdach home] DevCamp,
 
 ## Installation
 
-The minimum supported Moodle version is [**5.0**][moodle docs release 5.0] (build 2025041400).
+This fork is intentionally maintained for **Moodle 4.5 only** (build 2024100700 or later within the 4.5 series).
 
 You install `tool_monitoring` just like any other Moodle plugin.
-Starting with Moodle [**5.1**][moodle docs release 5.1], it belongs in the `public/admin/tool/monitoring` directory.
-(For Moodle 5.0 it goes into `admin/tool/monitoring`.)
+Place it in `admin/tool/monitoring` from the root of the Moodle installation.
 
-For example, using `git` from the root directory of your Moodle 5.1+ installation:
+For example, using `git` from the Moodle root:
 
 ```shell
 $ git clone \
-      https://github.com/daniil-berg/moodle-tool_monitoring.git \
-      public/admin/tool/monitoring
+      https://github.com/Ennero/moodle-tool_monitoring_for_4.5.git \
+      admin/tool/monitoring
 ```
 
 For other options and general plugin installation instructions, see the [official Moodle documentation][moodle docs plugin install].
+
+## Compatibility
+
+Release `v1.1.1` supports Moodle 4.5 only. It is verified in CI with PHP 8.1, 8.2, and 8.3 against both MariaDB and PostgreSQL. No compatibility with Moodle versions before 4.5 or after 4.5 is declared by this fork.
+
+## Development and CI
+
+Development changes target `develop`. A pull request from `develop` to `main` runs the complete six-environment Moodle 4.5 matrix (PHP 8.1–8.3 x MariaDB/PostgreSQL). After every required check succeeds, GitHub automatically merges that internal pull request into `main`. Direct changes to `main` are not the normal release path.
 
 ## Usage
 
@@ -114,15 +123,12 @@ After modifying the form data, clicking the "Save changes" button redirects you 
 
 The pre-installed Prometheus exporter has its own settings under _Site administration_ > _Plugins_ > _Admin tools_ > _Monitoring_ > _Available Exporters_ > _Prometheus Exporter_.
 
-The actual Prometheus endpoint is immediately accessible and can be reached at the route `/monitoringexporter_prometheus/metrics`.
+For Moodle 4.5, use the portable endpoint included with this fork:
 So if your Moodle web root is `https://example.com`, the full URL will look like this:
 
-`https://example.com/monitoringexporter_prometheus/metrics`
+`https://example.com/admin/tool/monitoring/exporter/prometheus/metrics.php`
 
-> [!IMPORTANT]
-> This relies on the router and your webserver being properly configured.
-> If not, the endpoint is reached at `/r.php/monitoringexporter_prometheus/metrics`.
-> See the relevant [Moodle documentation][moodle docs routing config] for details.
+It does not depend on Moodle's Routing API configuration.
 
 That endpoint can be secured by specifying an access token (shared secret) in the `monitoringexporter_prometheus | prometheus_token` setting.
 
@@ -185,9 +191,8 @@ scrape_configs:
     # If you have set an access token, provide it here.
     authorization:
       credentials: 'super-secure-secret'
-    # Specify the full endpoint path. The default is just '/metrics'.
-    # If Moodle routing is not fully configured, you have to prepend '/r.php' to the path.
-    metrics_path: /monitoringexporter_prometheus/metrics
+    # Moodle 4.5 portable endpoint supplied by this fork.
+    metrics_path: /admin/tool/monitoring/exporter/prometheus/metrics.php
     # Specify the target host.
     static_configs:
       - targets: ['example.com']
@@ -669,7 +674,7 @@ Exporter sub-plugins reside in the `exporter/` directory.
 Other than that, there are no restrictions on what exactly an exporter must or cannot do.
 
 The `monitoringexporter_prometheus` sub-plugin is included with `tool_monitoring` out of the box.
-It uses Moodle's [Routing API][moodle docs routing api] to expose the Prometheus metrics endpoint.
+For Moodle 4.5 it exposes a portable `metrics.php` endpoint, so Prometheus scraping does not depend on Routing API setup.
 
 ## Copyright
 
@@ -709,10 +714,6 @@ You should have received a copy of the GNU General Public License along with `to
 [moodle docs hook instance]: https://moodledev.io/docs/apis/core/hooks#hook-instance
 [moodle docs hooks.db]: https://moodledev.io/docs/apis/core/hooks#registering-of-hook-callbacks
 [moodle docs plugin install]: https://docs.moodle.org/en/Installing_plugins#Installing_a_plugin
-[moodle docs release 5.0]: https://moodledev.io/general/releases/5.0
-[moodle docs release 5.1]: https://moodledev.io/general/releases/5.1
-[moodle docs routing api]: https://moodledev.io/docs/apis/subsystems/routing
-[moodle docs routing config]: https://docs.moodle.org/en/Configuring_the_Router
 [moodle docs string api]: https://docs.moodle.org/dev/String_API
 [moodle docs tag api]: https://moodledev.io/docs/apis/subsystems/tag
 [moodle home]: https://moodle.com
