@@ -29,6 +29,8 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $string['pluginname'] = 'Prometheus Exporter';
 $string['privacy:metadata'] = 'The Prometheus Exporter plugin does not store any personal data.';
 $string['settings:token'] = 'Token';
