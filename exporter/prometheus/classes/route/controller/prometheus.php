@@ -47,6 +47,10 @@ use tool_monitoring\registered_metrics;
 /**
  * Provides the route for Prometheus to pull the current metrics.
  *
+ * Note: In Moodle 4.5, route controllers under the experimental routing API are not enabled by default.
+ * For production scraping in Moodle 4.5, use the portable endpoint:
+ * `/admin/tool/monitoring/exporter/prometheus/metrics.php`.
+ *
  * @package    monitoringexporter_prometheus
  * @copyright  2025 MootDACH DevCamp
  *             Daniel Fainberg <d.fainberg@tu-berlin.de>
