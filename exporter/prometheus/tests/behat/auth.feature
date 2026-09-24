@@ -30,6 +30,12 @@ Feature: Securing the exporter endpoint.
     Then I should not see "tool_monitoring"
     And I should see "Invalid auth token"
 
+    # Passing an invalid access token should be rejected.
+    When I call the Prometheus endpoint with the following query parameters:
+      | token | wrongtoken |
+    Then I should not see "tool_monitoring"
+    And I should see "Invalid auth token"
+
     # Passing the access token should grant access and the endpoint should return the metric again.
     When I call the Prometheus endpoint with the following query parameters:
       | token | abcdef |

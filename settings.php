@@ -34,7 +34,7 @@
 
 use tool_monitoring\plugininfo\monitoringexporter;
 
-defined('MOODLE_INTERNAL') || die;
+defined('MOODLE_INTERNAL') || die();
 
 global $ADMIN;
 

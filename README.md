@@ -206,7 +206,7 @@ For example, to only scrape metrics that have both the `hello` and the `world` t
 scrape_configs:
   - job_name: moodle-hello-world
     params:
-      - tag: ['hello,world']
+      tag: ['hello,world']
     # Same config as above...
 ```
 

@@ -290,29 +290,23 @@ final class metrics_manager implements cache_data_source_interface, registered_m
     private function fetch_existing(string ...$qnames): array {
         global $DB;
         $collected = [];
-        // Construct the `IN` expression and parameters from all component-name-combinations.
-        $inplaceholders = [];
-        $params = [];
-        foreach ($this->collection as $i => $collectedmetric) {
+        foreach ($this->collection as $collectedmetric) {
             [$component, $name] = [$collectedmetric->get_component(), $collectedmetric->get_name()];
             $qname = metric_record::get_qualified_name($component, $name);
             if (!empty($qnames) && !in_array($qname, $qnames)) {
                 continue;
             }
             $collected[$qname] = $collectedmetric;
-            $inplaceholders[] = "(:component$i, :name$i)";
-            $params["component$i"] = $component;
-            $params["name$i"] = $name;
         }
         if (empty($collected)) {
             return [];
         }
-        $inlist = implode(', ', $inplaceholders);
         $sqlqname = metric_record::get_qualified_name_sql($DB);
         $tablename = metric_record::TABLE;
+        [$insql, $params] = $DB->get_in_or_equal(array_keys($collected), SQL_PARAMS_NAMED);
         $sql = "SELECT $sqlqname, m.*
-                  FROM {{$tablename}} AS m
-                 WHERE (m.component, m.name) IN ($inlist)";
+                  FROM {{$tablename}} m
+                 WHERE $sqlqname $insql";
         $records = $DB->get_records_sql($sql, $params);
         $tags = managed_metric_tag::get_for_metric_ids(...array_column($records, 'id'));
         $metrics = [];
