@@ -115,3 +115,10 @@ Feature: Administering metrics
     Then I should see "tool_monitoring_users_online{time_window=\"1s\"} "
     And I should see "tool_monitoring_users_online{time_window=\"2s\"} "
     And I should see "tool_monitoring_users_online{time_window=\"3s\"} "
+
+  Scenario: Non-privileged users cannot access the monitoring overview
+    Given the following "users" exist:
+      | username | firstname | lastname | email                |
+      | student1 | Student   | One      | student1@example.com |
+    When I log in as "student1"
+    Then "Site administration" "link" should not exist
