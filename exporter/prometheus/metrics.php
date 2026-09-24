@@ -22,50 +22,25 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-use core\di;
-use core\exception\coding_exception;
-use dml_exception;
-use monitoringexporter_prometheus\exporter as prometheus_exporter;
-use tool_monitoring\exceptions\tag_not_found;
-use tool_monitoring\exceptions\tags_disabled;
-use tool_monitoring\registered_metrics;
+use monitoringexporter_prometheus\endpoint_helper;
 
 // phpcs:ignore moodle.Files.RequireLogin.Missing -- Authentication uses the configured Prometheus token.
 require_once(__DIR__ . '/../../../../../config.php');
 
 $expectedtoken = (string) get_config('monitoringexporter_prometheus', 'prometheus_token');
-$authorization = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
-if ($expectedtoken !== '') {
-    if (preg_match('/^Bearer\s+(.+)$/i', $authorization, $matches)) {
-        $token = $matches[1];
-    } else {
-        $token = optional_param('token', '', PARAM_RAW);
-    }
-    if (!hash_equals($expectedtoken, $token)) {
-        http_response_code(403);
-        header('Content-Type: text/plain; charset=utf-8');
-        echo 'Invalid auth token';
-        die();
-    }
-}
-
+$paramtoken = optional_param('token', '', PARAM_RAW);
 $taglist = optional_param('tag', '', PARAM_TAGLIST);
-$tagnames = $taglist === '' ? [] : explode(',', $taglist);
 
-try {
-    $metrics = di::get(registered_metrics::class)->filter(enabled: true, tagnames: $tagnames);
-} catch (tag_not_found | tags_disabled $e) {
-    http_response_code(422);
-    header('Content-Type: text/plain; charset=utf-8');
-    echo $e->getMessage();
-    die();
-} catch (coding_exception | dml_exception) {
-    debugging('Failed to collect Prometheus metrics.');
-    http_response_code(500);
-    header('Content-Type: text/plain; charset=utf-8');
-    echo 'Error in Prometheus exporter';
+$result = endpoint_helper::execute(
+    expectedtoken: $expectedtoken,
+    server: $_SERVER,
+    paramtoken: $paramtoken,
+    taglist: $taglist,
+);
+
+http_response_code($result['status']);
+header('Content-Type: ' . $result['content_type']);
+echo $result['body'];
+if ($result['status'] >= 400) {
     die();
 }
-
-header('Content-Type: text/plain; charset=utf-8');
-echo prometheus_exporter::export(...$metrics);
