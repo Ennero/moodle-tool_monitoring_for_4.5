@@ -65,7 +65,7 @@ For other options and general plugin installation instructions, see the [officia
 
 ## Compatibility
 
-Release `v1.1.1` supports Moodle 4.5 only. It is verified in CI with PHP 8.1, 8.2, and 8.3 against both MariaDB and PostgreSQL. No compatibility with Moodle versions before 4.5 or after 4.5 is declared by this fork.
+Release `v1.2.0` supports Moodle 4.5 only. It is verified in CI with PHP 8.1, 8.2, and 8.3 against both MariaDB and PostgreSQL. No compatibility with Moodle versions before 4.5 or after 4.5 is declared by this fork.
 
 ## Development and CI
 
